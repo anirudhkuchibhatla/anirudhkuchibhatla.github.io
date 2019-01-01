@@ -1,3 +1,12 @@
-h1 {
- color: #0024FF; 
+body {
+	color: #F0F0FF; 
 }
+
+.name {
+	color: #F0F0FF;
+}
+
+.top-header{
+	background-color: #000011; 
+}
+
