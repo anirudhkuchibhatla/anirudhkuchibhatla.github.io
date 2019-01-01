@@ -22,7 +22,7 @@ body {
 
 
 .top-header{
-	background-image: linear-gradient(35deg, rgba(0,0,0,0.9), rgba(5,5,50,.1)); 
+	background: linear-gradient(45deg, rgba(38,52,112,1) 35%, rgba(0,212,255,1) 100%);
 	padding: 40px 20px 50px 20px;
 	overflow: hidden;
 }
