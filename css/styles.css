@@ -24,6 +24,6 @@ body {
 
 
 .top-header{
-	background-color: linear-gradient( 35deg, rgba(0,0,0,0.1), rgba(5,5,50,.1));; 
+	background-image: linear-gradient( 35deg, rgba(0,0,0,0.1), rgba(5,5,50,.1));; 
     padding: 40px 20px 100px 20px;
 }
