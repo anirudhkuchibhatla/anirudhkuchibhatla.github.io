@@ -4,18 +4,26 @@ body {
 
 .name {
 	color: #F0F0FF;
+   
+    float: left;
 }
 
 .desc-links a {
-  float: left;
+
   color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
+
+  padding: 24px 26px;
   text-decoration: none;
   font-size: 17px;
+  float: right;
 }
+
+.desc-links a:hover {
+  background-color: blue;
+}
+
 
 .top-header{
 	background-color: #000011; 
+    padding: 30px 10px 100px 10px;
 }
-
