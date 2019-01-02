@@ -1,28 +1,51 @@
 body {
-	color: #F0F0FF; 
+    background: linear-gradient(90deg, rgba(229,234,255,1) 35%, rgba(246,255,249,1) 100%);
+
+
 }
 
 .name {
-	color: #F0F0FF;
-	padding: 10px 0px 0px 0px;
-	float: left;
+    color: #F0F0FF;
+    padding: 0px 70px;
+    float: left;
+    font-family: 'Cinzel Decorative', cursive;;
+}
+.desc-links{
+    float: right;
+    padding: 0px 50px;
 }
 
 .desc-links a {
-	color: #f2f2f2;
-	padding: 24px 26px;
-	text-decoration: none;
-	font-size: 17px;
-	float: right;
+    color: #f2f2f2;
+    padding: 50px 50px;
+    text-decoration: none;
+    font-size: 20px;
+
+
 }
 
 .desc-links a:hover {
-	background-color: blue;
+    font-size: 150%;
 }
 
 
 .top-header{
-	background: linear-gradient(45deg, rgba(38,52,112,1) 35%, rgba(0,212,255,1) 100%);
-	padding: 40px 20px 50px 20px;
-	overflow: hidden;
+    background: linear-gradient(45deg, rgba(38,52,112,1) 35%, rgba(0,212,255,1) 100%);
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    padding: 7vh 0px;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.content{
+    overflow: auto;
+    padding-top: 30vh;
+    margin: 0vh 5vw;
+
 }
