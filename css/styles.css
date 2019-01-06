@@ -6,8 +6,12 @@ body {
 
 h2{
     text-align: center;
+    padding-bottom: 5vh;
 }
 
+p {
+    margin: 0px 20vw;
+}
 .name {
     color: #F0F0FF;
     padding: 0px 4vw;
@@ -30,6 +34,7 @@ h2{
 
 .desc-links a:hover {
     font-size: 150%;
+    padding: 50px 50px;
 }
 
 
@@ -64,9 +69,16 @@ h2{
 #about-me{
     padding-top: 10vh;
     padding-bottom: 10vh;
+    text-align: center;
 }
 
 #projects{
     padding-top: 10vh;
     padding-bottom: 10vh;
+}
+
+#desc{
+    padding-top: 5vh;
+
+
 }
