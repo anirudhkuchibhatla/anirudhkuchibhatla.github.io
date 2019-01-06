@@ -7,16 +7,19 @@ body {
 h2{
     text-align: center;
     padding-bottom: 5vh;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 2em;
 }
 
 p {
     margin: 0px 20vw;
+    font-size: 1.5em;
 }
 .name {
     color: #F0F0FF;
     padding: 0px 4vw;
     float: left;
-    font-family: 'Cinzel Decorative', cursive;;
+    font-family: 'Cinzel Decorative', cursive;
 }
 .desc-links{
     float: right;
