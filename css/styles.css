@@ -8,7 +8,14 @@ h2{
     text-align: center;
     padding-bottom: 5vh;
     font-family: 'Cinzel Decorative', cursive;
-    font-size: 2em;
+    font-size: 2.3em;
+}
+
+h3{
+    font-family: 'Cinzel Decorative', cursive;
+    text-align: center;
+    padding-bottom: 5vh;
+    font-size: 1.5em;
 }
 
 p {
@@ -20,6 +27,7 @@ p {
     padding: 0px 4vw;
     float: left;
     font-family: 'Cinzel Decorative', cursive;
+    font-size: 2.3em;
 }
 .desc-links{
     float: right;
@@ -84,4 +92,16 @@ p {
     padding-top: 5vh;
 
 
+}
+
+.project-tile{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 1);
+    background-color: rgba(76, 15, 180, 0);
+    padding: 10vh 0vw;
+    margin: 1vh 10vw 9vh;
+
+}
+
+.proj-desc{
+    margin-left: 15vw;
 }
