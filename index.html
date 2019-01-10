@@ -3,6 +3,7 @@
 <head>
 <link rel="stylesheet" href="css/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 </head>
 <body>
 <div class = "top-header">
@@ -17,7 +18,7 @@
 <div class = 'content'>
     <div id = 'about-me'>
         <h2> About Me </h2>
-        <img src="assets/ResumePicture.jpg" alt="Anirudh Kuchibhatla" class="photo">
+        <img src="assets/ResumePicture.jpg" alt="Anirudh Kuchibhatla" id="personal">
         <p id = 'desc'> Hello! I'm Anirudh! Thanks for visiting my website! I am a sophomore at Rice pursuing a B.S. in Electrical Engineering and the Rice Center for Engineering Leadership Certificate.
             My primary interests currently entail data science as I seek to pursue internships in machine learning and data science. However, I am open to other opportunities as well.
             I am extremely self-motivated and will strive to successfully complete any project I start. I also have strong problem solving skills and work well with any ambitious team.
@@ -27,26 +28,31 @@
         <h2 id = "projheader">Projects</h2>
         <div class = "project-tile" id ="motorcycle">
             <h3>Ghost Rider</h3>
-            <ul class = "proj-desc">
-                <li></li>
-                <li></li>
-                <li></li>
+            <ul class = "proj-desc" id = "motorcycle_content">
+                <li>Designing an autonomous motorcycle capable of driving along a given path.</li>
+                <li>Currently modifying the toy motorcycle seen in the image above which is capable of balancing itself.</li>
+                <li>Utilizing Arduinos that would control the steering and adjust the throttle as necessary to tread the path carefully.</li>
             </ul>
         </div>
         <div class = "project-tile" id ="Trailblazer">
+            <!--The following image is by Rawpixel on Unsplash-->
+            <img src="assets/trail_blazer.jpg" alt = "Doctor with Patient, Image by Rawpixel on Unsplash " id="trailphoto">
             <h3>Trailblazer</h3>
-            <ul class = "proj-desc">
-                <li></li>
-                <li></li>
-                <li></li>
+            <ul class = "proj-desc" id = "trail_content">
+                <li>Created a service that connects students to research labs across the Texas Medical Center to participate as subjects for psychology and biology experiments in exchange for financial compensation.</li>
+                <li>Recruited 146 students to sign up for the service.</li>
+                <li>Designing the iOS and Android app using the Flutter framework as a platform for students to schedule their appointments.</li>
+                <li>Contacted research labs to invite them to participate in this service.</li>
             </ul>
         </div>
         <div class = "project-tile" id ="SocialCEO">
+            <!--The following image is by Rawpixel on Unsplash-->
+            <img src="assets/social_ceo.jpg" alt = "Stocks on Phone, Image by Rawpixel on Unsplash " id="socialphoto">
             <h3>Social CEO</h3>
-            <ul class = "proj-desc">
-                <li></li>
-                <li></li>
-                <li></li>
+            <ul class = "proj-desc" id = "social_content">
+                <li>Designed a website that predicted the impact of an inputted Elon Musk tweet on Tesla's stock price.</li>
+                <li>Collected the required data and created the models necessary to estimate the impact.</li>
+                <li>Utilized the Scikit Machine Learning library for Python to test different models and select the model that generated the smallest error.</li>
             </ul>
         </div>
     </div>
