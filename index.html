@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://unpkg.com/feather-icons"></script>
 <link rel="stylesheet" href="css/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
@@ -36,7 +37,7 @@
         </div>
         <div class = "project-tile" id ="Trailblazer">
             <!--The following image is by Rawpixel on Unsplash-->
-            <img src="assets/trail_blazer.jpg" alt = "Doctor with Patient, Image by Rawpixel on Unsplash " id="trailphoto">
+            <img src="assets/trail_blazer.jpg" alt = "Doctor with Patient, Image by Rawpixel on Unsplash " id="trail_photo">
             <h3>Trailblazer</h3>
             <ul class = "proj-desc" id = "trail_content">
                 <li>Created a service that connects students to research labs across the Texas Medical Center to participate as subjects for psychology and biology experiments in exchange for financial compensation.</li>
@@ -47,7 +48,7 @@
         </div>
         <div class = "project-tile" id ="SocialCEO">
             <!--The following image is by Rawpixel on Unsplash-->
-            <img src="assets/social_ceo.jpg" alt = "Stocks on Phone, Image by Rawpixel on Unsplash " id="socialphoto">
+            <img src="assets/social_ceo.jpg" alt = "Stocks on Phone, Image by Rawpixel on Unsplash " id="social_photo">
             <h3>Social CEO</h3>
             <ul class = "proj-desc" id = "social_content">
                 <li>Designed a website that predicted the impact of an inputted Elon Musk tweet on Tesla's stock price.</li>
@@ -58,8 +59,24 @@
     </div>
     <div id = "contact">
         <h2>Contact</h2>
-    </div>
+        <div class = "footer">
 
+            <a class = "contact_links" href ="https://www.linkedin.com/in/anirudh-kuchibhatla/" >
+                <i data-feather="linkedin"></i>
+            </a>
+            <a class = "contact_links" href="https://github.com/anirudhkuchibhatla" >
+                <i data-feather="github"></i>
+            </a>
+
+            <a class = "contact_links" href="mailto:ask9@rice.edu" >
+                <i data-feather="mail"></i>
+            </a>
+
+        </div>
+    </div>
 </div>
+<script>
+    feather.replace()
+</script>
 </body>
 </html>
