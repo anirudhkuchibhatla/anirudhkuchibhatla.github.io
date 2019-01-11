@@ -96,20 +96,23 @@ i {
 }
 
 .contact_links {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    display: inline-block;
+    background: blue;
     background: linear-gradient(45deg, rgba(38,52,112,1) 35%, rgba(0,212,255,1) 100%);
     border: none; /* Remove borders */
     color: white; /* White text */
     padding: 15px 16px; /* Some padding */
     margin: 5px 10px 5px;
     border-radius: 50%;
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-    text-decoration: none;
-    display: inline-block;
+
 }
 
 .contact_links:hover {
+    background: aqua;
     background: linear-gradient(45deg, rgba(38,52,125,1) 5%, rgba(100,212,255,1) 100%);
 }
 
