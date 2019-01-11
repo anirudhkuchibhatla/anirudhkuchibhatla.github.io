@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background: linear-gradient(90deg, rgba(229,234,255,1) 35%, rgba(246,255,249,1) 100%);
 
@@ -22,8 +27,15 @@ p {
     margin: 0px 20vw;
     font-size: 1.5em;
     font-family: 'Playfair Display', serif;
-    
+    font-family: "Nirmala UI";
 }
+
+i {
+    align-self: center;
+    size: 10px;
+
+}
+
 .name {
     color: #F0F0FF;
     padding: 0px 4vw;
@@ -33,12 +45,12 @@ p {
 }
 .desc-links{
     float: right;
-    padding: 0px 50px;
+    padding: 12px 50px;
 }
 
 .desc-links a {
     color: #f2f2f2;
-    padding: 50px 50px;
+    padding: 50px 2.5vw;
     text-decoration: none;
     font-size: 20px;
     font-family: 'Cinzel Decorative', cursive;
@@ -46,8 +58,8 @@ p {
 }
 
 .desc-links a:hover {
-    font-size: 150%;
-    padding: 50px 50px;
+    color: navy;
+
 }
 
 
@@ -60,56 +72,10 @@ p {
 
 }
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
 .content{
     overflow: auto;
     padding-top: 20vh;
     margin: 0vh 5vw;
-
-}
-
-#personal {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 25%;
-}
-
-
-#trailphoto {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-}
-
-#socialphoto {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-}
-
-
-
-#about-me{
-    padding-top: 10vh;
-    padding-bottom: 10vh;
-    text-align: center;
-}
-
-#projects{
-    padding-top: 10vh;
-    padding-bottom: 10vh;
-}
-
-#desc{
-    padding-top: 5vh;
-
 
 }
 
@@ -128,3 +94,66 @@ p {
     font-size: 1.3em;
     font-family: "Georgia";
 }
+
+.contact_links {
+    background: linear-gradient(45deg, rgba(38,52,112,1) 35%, rgba(0,212,255,1) 100%);
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 15px 16px; /* Some padding */
+    margin: 5px 10px 5px;
+    border-radius: 50%;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.contact_links:hover {
+    background: linear-gradient(45deg, rgba(38,52,125,1) 5%, rgba(100,212,255,1) 100%);
+}
+
+.footer {
+    position: absolute;
+    margin: 0px 37vw;
+    padding-bottom: 10vh;
+}
+
+#personal {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+}
+
+#trail_photo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+#social_photo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+#about-me{
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    text-align: center;
+}
+
+#projects{
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+
+#desc{
+    padding-top: 5vh;
+
+
+}
+
