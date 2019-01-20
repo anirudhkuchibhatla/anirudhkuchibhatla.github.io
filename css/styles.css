@@ -96,6 +96,7 @@ i {
 }
 
 .contact_links {
+
     -moz-appearance: button;
     appearance: button;
     text-decoration: none;
@@ -127,6 +128,14 @@ i {
     margin-right: auto;
     width: 25%;
 }
+
+#moto_photo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
 
 #trail_photo {
     display: block;
