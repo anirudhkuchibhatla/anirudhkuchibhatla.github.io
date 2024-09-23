@@ -179,8 +179,8 @@ i {
 }
 
 #personal {
-  width: 30%;
-  max-width: 300px;
+  width: 40%; /* Increased from 30% */
+  max-width: 400px; /* Increased from 300px */
   height: auto;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -191,16 +191,21 @@ i {
   text-align: left;
 }
 
-#desc p {
-  margin: 0 0 1em 0;
-  font-size: 1.1em;
+#desc p, #desc ul, #desc li {
+  font-family: "Nirmala UI", sans-serif; /* Match the font from your original CSS */
+  font-size: 1.3em; /* Match the font size from your original CSS */
   line-height: 1.6;
   color: #333;
+}
+
+#desc p {
+  margin: 0 0 1em 0;
 }
 
 #desc ul {
   margin-left: 2em;
   margin-bottom: 1em;
+  list-style-type: disc; /* Use bullet points for the list */
 }
 
 #desc li {
@@ -225,7 +230,7 @@ i {
   }
 
   #personal {
-    width: 60%;
+    width: 80%; /* Increased from 60% for mobile view */
     margin-bottom: 2em;
   }
 
