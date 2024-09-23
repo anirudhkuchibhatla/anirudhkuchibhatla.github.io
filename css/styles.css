@@ -164,7 +164,73 @@ i {
 
 #desc{
     padding-top: 5vh;
+}
 
+/* New styles for the About Me section */
+#about-me {
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+}
 
+.about-me-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 5vw;
+}
+
+#personal {
+  width: 30%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#desc {
+  flex: 1;
+  text-align: left;
+}
+
+#desc p {
+  margin: 0 0 1em 0;
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #333;
+}
+
+#desc ul {
+  margin-left: 2em;
+  margin-bottom: 1em;
+}
+
+#desc li {
+  margin-bottom: 0.5em;
+}
+
+#desc a {
+  color: #2653AB;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#desc a:hover {
+  color: #1E3F7A;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .about-me-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #personal {
+    width: 60%;
+    margin-bottom: 2em;
+  }
+
+  #desc {
+    width: 100%;
+  }
 }
 
