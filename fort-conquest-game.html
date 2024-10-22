@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fort Conquest</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #difficulty-screen, #game-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 600px;
+        }
+        .difficulty-button {
+            margin: 10px;
+            padding: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .difficulty-button:hover {
+            opacity: 0.9;
+        }
+        .difficulty-button.easy { background-color: #4CAF50; }
+        .difficulty-button.medium { background-color: #FFA500; }
+        .difficulty-button.hard { background-color: #f44336; }
+        .difficulty-button.maddening { background-color: #8B0000; }
+        .fort {
+            width: 80px;
+            height: 100px;
+            margin: 10px;
+            background-color: #ddd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .fort.player { background-color: #4CAF50; color: white; }
+        .fort.opponent { background-color: #f44336; color: white; }
+        .fort.tie { background-color: #FFA500; color: white; }
+        .fort input {
+            width: 60px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 5px;
+            color: inherit;
+            padding: 5px;
+        }
+        .fort input::placeholder { color: rgba(0, 0, 0, 0.5); }
+        #status {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #restart {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #difficulty-display {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #stats-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .stats {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        #rules-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        #rules-popup h2 {
+            margin-top: 0;
+        }
+        #close-rules {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fort Conquest</h1>
+    <div id="difficulty-screen">
+        <button class="difficulty-button easy" onclick="startGame('easy')">Easy</button>
+        <button class="difficulty-button medium" onclick="startGame('medium')">Medium</button>
+        <button class="difficulty-button hard" onclick="startGame('hard')">Hard</button>
+        <button class="difficulty-button maddening" onclick="startGame('maddening')">Maddening</button>
+    </div>
+    <div id="difficulty-display"></div>
+    <div id="game-container" style="display: none;"></div>
+    <div id="status"></div>
+    <button id="restart" style="display: none;" onclick="showDifficultyScreen()">Restart Game</button>
+    <div id="stats-container"></div>
+
+    <div id="rules-popup">
+        <h2>Welcome to Fort Conquest!</h2>
+        <p>Here are the rules:</p>
+        <ul>
+            <li>You start with 100 soldiers.</li>
+            <li>There are 10 forts to conquer, each worth 1-10 points.</li>
+            <li>Allocate your soldiers to attack forts.</li>
+            <li>If you send more soldiers than your opponent, you capture the fort and earn its points.</li>
+            <li>If there's a tie, the points are split.</li>
+            <li>The player with the most points at the end wins!</li>
+        </ul>
+        <button id="close-rules">Got it!</button>
+    </div>
+
+    <script>
+        const difficultyScreen = document.getElementById('difficulty-screen');
+        const gameContainer = document.getElementById('game-container');
+        const statusElement = document.getElementById('status');
+        const restartButton = document.getElementById('restart');
+        const difficultyDisplay = document.getElementById('difficulty-display');
+        const statsContainer = document.getElementById('stats-container');
+        const rulesPopup = document.getElementById('rules-popup');
+        let playerSoldiers = 100;
+        let opponentSoldiers = 100;
+        let playerScore = 0;
+        let opponentScore = 0;
+        let forts = [];
+        let remainingForts = 10;
+        let difficulty = 'easy';
+        let opponentAllocations = [];
+        let isFirstTurn = true;
+        let opponentWonFirstFort = false;
+        let firstAttackedFort = null;
+        let stats = {
+            easy: { wins: 0, losses: 0 },
+            medium: { wins: 0, losses: 0 },
+            hard: { wins: 0, losses: 0 },
+            maddening: { wins: 0, losses: 0 }
+        };
+
+        function showDifficultyScreen() {
+            difficultyScreen.style.display = 'flex';
+            gameContainer.style.display = 'none';
+            restartButton.style.display = 'none';
+            statusElement.textContent = '';
+            difficultyDisplay.textContent = '';
+            updateStats();
+        }
+
+        function startGame(selectedDifficulty) {
+            difficulty = selectedDifficulty;
+            difficultyScreen.style.display = 'none';
+            gameContainer.style.display = 'flex';
+            updateDifficultyDisplay();
+            initGame();
+            if (!localStorage.getItem('rulesShown')) {
+                showRules();
+            }
+        }
+
+        function showRules() {
+            rulesPopup.style.display = 'block';
+            document.getElementById('close-rules').onclick = function() {
+                rulesPopup.style.display = 'none';
+                localStorage.setItem('rulesShown', 'true');
+            };
+        }
+
+        function updateDifficultyDisplay() {
+            difficultyDisplay.textContent = `Difficulty: ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`;
+            difficultyDisplay.style.color = 
+                difficulty === 'easy' ? '#4CAF50' : 
+                difficulty === 'medium' ? '#FFA500' : 
+                difficulty === 'hard' ? '#f44336' : '#8B0000';
+        }
+
+        function initGame() {
+            playerSoldiers = 100;
+            opponentSoldiers = 100;
+            playerScore = 0;
+            opponentScore = 0;
+            forts = [];
+            remainingForts = 10;
+            isFirstTurn = true;
+            opponentWonFirstFort = false;
+            firstAttackedFort = null;
+            gameContainer.innerHTML = '';
+
+            if (difficulty !== 'maddening') {
+                opponentAllocations = preAllocateOpponentSoldiers();
+            } else {
+                opponentAllocations = new Array(10).fill(0);
+            }
+
+            for (let i = 1; i <= 10; i++) {
+                const fort = document.createElement('div');
+                fort.className = 'fort';
+                fort.innerHTML = `
+                    <div>Fort ${i}</div>
+                    <div>${i} pts</div>
+                    <input type="number" min="0" max="${playerSoldiers}" value="0" placeholder="Troops">
+                    <button onclick="attackFort(this.parentElement, ${i})">Attack</button>
+                `;
+                fort.dataset.points = i;
+                const input = fort.querySelector('input');
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        attackFort(this.parentElement, i);
+                    }
+                });
+                gameContainer.appendChild(fort);
+                forts.push(fort);
+            }
+
+            updateStatus();
+        }
+
+        function preAllocateOpponentSoldiers() {
+            let allocations = new Array(10).fill(0);
+            let remainingSoldiers = 100;
+
+            switch (difficulty) {
+                case 'easy':
+                    for (let i = 0; i < 10 && remainingSoldiers > 0; i++) {
+                        let soldiers = Math.floor(Math.random() * Math.min(remainingSoldiers, 20)) + 1;
+                        allocations[i] = soldiers;
+                        remainingSoldiers -= soldiers;
+                    }
+                    break;
+                case 'medium':
+                    let totalWeight = 55; // sum of 1 to 10
+                    for (let i = 9; i >= 0; i--) {
+                        let weight = (i + 1) / totalWeight;
+                        allocations[i] = Math.round(Math.random() * remainingSoldiers * weight);
+                        remainingSoldiers -= allocations[i];
+                    }
+                    break;
+                case 'hard':
+                    let targetForts = [];
+                    let totalPoints = 0;
+                    while (totalPoints < 28 && targetForts.length < 6) {
+                        let fort = Math.min(Math.floor(Math.random() * 15),9);
+                        if (!targetForts.includes(fort)) {
+                            targetForts.push(fort);
+                            totalPoints += fort + 1;
+                        }
+                    }
+                    let soldiersPerFort = Math.floor(remainingSoldiers / targetForts.length);
+                    targetForts.forEach(fort => {
+                        allocations[fort] = soldiersPerFort;
+                        remainingSoldiers -= soldiersPerFort;
+                    });
+                    break;
+            }
+
+            // Distribute any remaining soldiers
+            let index = 9;
+            while (remainingSoldiers > 0) {
+                allocations[index % 10]++;
+                remainingSoldiers--;
+                index--;
+            }
+
+            return allocations;
+        }
+
+        function allocateMaddeningSoldiers(fortIndex) {
+            if (isFirstTurn) {
+                if (fortIndex >= 7) {
+                    return 25;
+                } else if (fortIndex >= 5) {
+                    return 20;
+                } else {
+                    return 0;
+                }
+            } else {
+                let remainingFortPoints = forts.filter(fort => !fort.classList.contains('player') && !fort.classList.contains('opponent') && !fort.classList.contains('tie'))
+                                               .map(fort => parseInt(fort.dataset.points));
+                
+                let targetForts = [];
+                let totalPoints = 0;
+                
+                if (opponentWonFirstFort) {
+                    targetForts.push(firstAttackedFort - 1);
+                    totalPoints += firstAttackedFort;
+                    remainingFortPoints = remainingFortPoints.filter(point => point !== firstAttackedFort);
+                }
+                
+                while (totalPoints < 28 && targetForts.length < 5 && remainingFortPoints.length > 0) {
+                    let randomIndex = Math.floor(Math.random() * remainingFortPoints.length);
+                    let fort = remainingFortPoints[randomIndex];
+                    targetForts.push(fort - 1);
+                    totalPoints += fort;
+                    remainingFortPoints.splice(randomIndex, 1);
+                }
+
+                if (targetForts.includes(fortIndex)) {
+                    let totalTargetPoints = targetForts.reduce((sum, fort) => sum + parseInt(forts[fort].dataset.points), 0);
+                    let fortPoints = parseInt(forts[fortIndex].dataset.points);
+                    return Math.floor((fortPoints / totalTargetPoints) * opponentSoldiers);
+                } else {
+                    return 1;
+                }
+            }
+        }
+
+        function attackFort(fort, points) {
+            const input = fort.querySelector('input');
+            const playerAttack = parseInt(input.value);
+
+            if (playerAttack > playerSoldiers) {
+                alert("You don't have enough soldiers!");
+                return;
+            }
+
+            if (playerAttack < 0) {
+                alert("You can't send a negative number of soldiers!");
+                return;
+            }
+
+            let opponentAttack;
+            if (difficulty === 'maddening') {
+                opponentAttack = allocateMaddeningSoldiers(points - 1);
+            } else {
+                opponentAttack = opponentAllocations[points - 1];
+            }
+
+            playerSoldiers -= playerAttack;
+            opponentSoldiers -= opponentAttack;
+            remainingForts--;
+
+            if (playerAttack > opponentAttack) {
+                fort.classList.add('player');
+                playerScore += points;
+                fort.innerHTML = `<div>Fort ${points}</div><div>${points} pts</div><div>You: ${playerAttack}</div><div>Opp: ${opponentAttack}</div>`;
+            } else if (playerAttack < opponentAttack) {
+                fort.classList.add('opponent');
+                opponentScore += points;
+                fort.innerHTML = `<div>Fort ${points}</div><div>${points} pts</div><div>You: ${playerAttack}</div><div>Opp: ${opponentAttack}</div>`;
+                if (isFirstTurn) {
+                    opponentWonFirstFort = true;
+                    firstAttackedFort = points;
+                }
+            } else {
+                fort.classList.add('tie');
+                playerScore += points / 2;
+                opponentScore += points / 2;
+                fort.innerHTML = `<div>Fort ${points}</div><div>${points} pts</div><div>Tie: ${playerAttack}</div>`;
+            }
+
+            isFirstTurn = false;
+            updateStatus();
+
+            if (remainingForts === 0) {
+                endGame();
+            }
+        }
+
+        function updateStatus() {
+            statusElement.textContent = `Your Score: ${formatScore(playerScore)} | Opponent Score: ${formatScore(opponentScore)} | Your Soldiers: ${playerSoldiers} | Opponent Soldiers: ${opponentSoldiers}`;
+        }
+
+        function formatScore(score) {
+            return Number.isInteger(score) ? score.toString() : score.toFixed(1);
+        }
+
+        function endGame() {
+            let result;
+            if (playerScore > opponentScore) {
+                result = "You win!";
+                stats[difficulty].wins++;
+            } else if (playerScore < opponentScore) {
+                result = "You lose!";
+                stats[difficulty].losses++;
+            } else {
+                result = "It's a tie!";
+            }
+            statusElement.textContent = `Game Over! ${result} Final Score - You: ${formatScore(playerScore)}, Opponent: ${formatScore(opponentScore)}`;
+            restartButton.style.display = 'block';
+            updateStats();
+            localStorage.setItem('gameStats', JSON.stringify(stats));
+        }
+
+        function updateStats() {
+            statsContainer.innerHTML = '';
+            for (let diff in stats) {
+                let wins = stats[diff].wins;
+                let losses = stats[diff].losses;
+                let total = wins + losses;
+                let winPercentage = total > 0 ? (wins / total * 100).toFixed(1) : 0;
+                let color = diff === 'easy' ? '#4CAF50' : 
+                            diff === 'medium' ? '#FFA500' : 
+                            diff === 'hard' ? '#f44336' : '#8B0000';
+                statsContainer.innerHTML += `
+                    <div class="stats">
+                        <span style="color: ${color}; font-weight: bold;">${diff.charAt(0).toUpperCase() + diff.slice(1)}:</span> 
+                        Wins: ${wins}, Losses: ${losses}, Win Rate: ${winPercentage}%
+                    </div>
+                `;
+            }
+        }
+
+        // Load saved stats
+        let savedStats = localStorage.getItem('gameStats');
+        if (savedStats) {
+            stats = JSON.parse(savedStats);
+        }
+
+        showDifficultyScreen();
+    </script>
+</body>
+</html>
